@@ -23,6 +23,7 @@ end
 
 % Show the randomized config for the robot.
 show(mc, cfg)
+T = getTransform(mc, cfg, 'link6');
 
 %% Forward Kinematics
 theta1 = 0;
@@ -47,16 +48,16 @@ dhParams = [
 %% Rasmus' DH parametres
 % TODO: Change the urdf file to match DH params!
 dhParams_Test = [   
-               %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                   a        alpha        d           theta
-                    0,        0,      173.9 * 1e-3,     0;
-                    0,       pi/2,        0,            0;
-                135 * 1e-3,   0,          0,            0;
-                120 * 1e-3,   0,     88.78 * 1e-3,      0;
-                    0,       pi/2,     95 * 1e-3,       0;
-                    0,      -pi/2,    65.5 * 1e-3,      0
-               %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            ];
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                   a        alpha        d       theta
+                0,        0,      173.9 * 1e-3,     0;
+                0,       pi/2,        0,            0;
+            135 * 1e-3,   0,          0,            0;
+            120 * 1e-3,   0,     88.78 * 1e-3,      0;
+                0,       pi/2,     95 * 1e-3,       0;
+                0,      -pi/2,    65.5 * 1e-3,      0
+           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        ];
 
 % Setting up the robot rigidbody tree.
 cobot = rigidBodyTree;
@@ -113,6 +114,8 @@ for i = 1: length(q)
 end
 
 show(cobot, cfg)
+% TODO: Make sure T and T_cobot are similar.
+% NOTE: Distances in this transform matrix is in metres.
 T_cobot = getTransform(cobot, cfg, 'link6');
 pos = T_cobot(1:3,4) * 1e3;
 ori = rotm2eul(T_cobot(1:3,1:3), "XYZ");
@@ -122,6 +125,8 @@ p = sym(pi);
 o = sym('o', [1,6]);
 
 theta_home = [0, p/2, 0, p/2, 0, 0];
+
+% TODO: Needs to be explained
 T1 = ModDH(0, 0, 179.3, o(1) + theta_home(1));
 T2 = ModDH(pi/2, 0, 0, o(2) + theta_home(2));
 T3 = ModDH(0, 0, 135, o(3) + theta_home(3));
