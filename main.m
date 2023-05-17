@@ -18,7 +18,7 @@ cfg = homeConfiguration(mc);
 
 % Set each individual joint to a entry value of the q vector.
 for i = 1: length(q)
-    cfg(i).JointPosition = cfg(i).JointPosition + q(i);
+    cfg(i).JointPosition = cfg(i).JointPosition;
 end
 
 % Show the randomized config for the robot.
@@ -45,8 +45,10 @@ dhParams = [
          ];
 
 %% Rasmus' DH parametres
+% TODO: Change the urdf file to match DH params!
 dhParams_Test = [   
                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                   a        alpha        d           theta
                     0,        0,      173.9 * 1e-3,     0;
                     0,       pi/2,        0,            0;
                 135 * 1e-3,   0,          0,            0;
@@ -72,12 +74,12 @@ jnt5 = rigidBodyJoint('joint6_to_joint4','revolute');
 body6 = rigidBody('link6');
 jnt6 = rigidBodyJoint('joint6output_to_joint6','revolute');
 
-setFixedTransform(jnt1, dhParams_Test(1,:),'mdh')
-setFixedTransform(jnt2, dhParams_Test(2,:),'mdh')
-setFixedTransform(jnt3, dhParams_Test(3,:),'mdh')
-setFixedTransform(jnt4, dhParams_Test(4,:),'mdh')
-setFixedTransform(jnt5, dhParams_Test(5,:),'mdh')
-setFixedTransform(jnt6, dhParams_Test(6,:),'mdh')
+setFixedTransform(jnt1, dhParams_Test(1,:), 'mdh')
+setFixedTransform(jnt2, dhParams_Test(2,:), 'mdh')
+setFixedTransform(jnt3, dhParams_Test(3,:), 'mdh')
+setFixedTransform(jnt4, dhParams_Test(4,:), 'mdh')
+setFixedTransform(jnt5, dhParams_Test(5,:), 'mdh')
+setFixedTransform(jnt6, dhParams_Test(6,:), 'mdh')
 
 jnt1.HomePosition = 0;
 body1.Joint = jnt1;
