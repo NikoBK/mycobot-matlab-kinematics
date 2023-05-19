@@ -1,6 +1,7 @@
 % Name:     main.m
 % Created:  5/17/2023
 % Author:   264
+% Comments: 💀💀💀💀
 
 % Clear console & cache
 close all; clear; clc;
@@ -18,7 +19,7 @@ cfg = homeConfiguration(mc);
 
 % Set each individual joint to a entry value of the q vector.
 for i = 1: length(q)
-    cfg(i).JointPosition = cfg(i).JointPosition;
+    cfg(i).JointPosition = cfg(i).JointPosition + q;
 end
 
 % Show the randomized config for the robot.
@@ -37,11 +38,11 @@ theta6 = 0;
 dhParams = [ 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
               0,      0,     0,      theta1;
-             -90      0,     0,    theta2 - 90;
-              0,     135,    0,       theta3
-              90,    120,  88.78,  theta4 + 90;
-              90,     0,    05,       theta5;
-             -90,     0,     0,       theta6
+             0,      0,     0,    theta2 - pi/2;
+              0,     135*1e-3,    0,       theta3
+              0,    120*1e-3,  88.78*1e-3,  theta4 + pi/2;
+              pi/2,     0,    95*1e-3,       theta5;
+             -pi/2,     0,     0,       theta6
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
          ];
 
@@ -75,12 +76,12 @@ jnt5 = rigidBodyJoint('joint6_to_joint4','revolute');
 body6 = rigidBody('link6');
 jnt6 = rigidBodyJoint('joint6output_to_joint6','revolute');
 
-setFixedTransform(jnt1, dhParams_Test(1,:), 'mdh')
-setFixedTransform(jnt2, dhParams_Test(2,:), 'mdh')
-setFixedTransform(jnt3, dhParams_Test(3,:), 'mdh')
-setFixedTransform(jnt4, dhParams_Test(4,:), 'mdh')
-setFixedTransform(jnt5, dhParams_Test(5,:), 'mdh')
-setFixedTransform(jnt6, dhParams_Test(6,:), 'mdh')
+setFixedTransform(jnt1, dhParams_Test(1,:), 'mdh');
+setFixedTransform(jnt2, dhParams_Test(2,:), 'mdh');
+setFixedTransform(jnt3, dhParams_Test(3,:), 'mdh');
+setFixedTransform(jnt4, dhParams_Test(4,:), 'mdh');
+setFixedTransform(jnt5, dhParams_Test(5,:), 'mdh');
+setFixedTransform(jnt6, dhParams_Test(6,:), 'mdh');
 
 jnt1.HomePosition = 0;
 body1.Joint = jnt1;
