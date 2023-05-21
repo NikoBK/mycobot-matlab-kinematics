@@ -26,6 +26,6 @@ function modifiedDHParams = modifyDHParams(alpha, a, d, theta)
         r11, r12, r13, r14;
         r21, r22, r23, r24;
         r31, r32, r33, r34;
-         0    0    0    1
+         0,   0,   0,   1
     ];
 end
