@@ -10,6 +10,7 @@ sympref('FloatingPointOutput',true);
 o = sym('o', [1,6]);
 p = sym(pi); % Symbolic pi
 
+% [DERECATED]
 % Get the Denavit Hartenberg parameters.
 % dhParams = getDHParams();
 
@@ -29,4 +30,13 @@ dhT6 = modifyDHParams(-p/2, 0, 65.5, o(6)); %dhParams(1,1), dhParams(6,2), dhPar
 dhT16 = simplify(dhT1 * dhT2 * dhT3 * dhT4 * dhT5 * dhT6);
 
 % Use the theta values to calculate the algebraic position and orientation.
+% converted to radians
 thetas = [0,0,0,0,0,0] * pi/180;
+dh_a = [0, 0, 135, 120, 0, 0];
+dh_d = [173.9, 0, 0, 88.78, 95, 65.5];
+
+x = dhT16(1,4)
+
+% Calculate the algebraic equations for forward kinematics to get the final
+% frame's xyz and RPY.
+[P, O] = getFinalFrame(dh_a, dh_d, thetas);
