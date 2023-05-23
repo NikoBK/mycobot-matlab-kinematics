@@ -25,8 +25,8 @@ thetas = [10, 20, 30, 40, 50, 60];
 
 % Get the end frame position and orientation.
 [P, O] = getFinalFrame(thetas);
-goalPosition = P;
-goalOrientation = O;
+goalPosition = [5, -265, 20];
+goalOrientation = [180, 0, 90] * pi/180;
 
 % Options for the optimization algorithm.
 % Currently set to run 6000 times (1000 times per variable), default: 200.
@@ -38,7 +38,7 @@ for n = 0:1000
     % The numeric solutions need a good starting guess. This serves as a
     % seed rather than something like 0, 0, ..., 0, we get random numbers
     % for each entry in q0 which is a vector.
-    q0 = [0, 0, 0, 0, 0, 0] + (rand(1,6) * 2 - 1) * 20 * pi/180;
+    q0 = [0, 0, 0, 0, 0, 0] + (rand(1,6) * 2 - 1) * 40 * pi/180;
 
     % Solve the inverse kinematics.
     % fminsearch works similar to 'fminunc' however this one is a better
@@ -52,8 +52,9 @@ for n = 0:1000
     i = i + 1;
     p_error(i,:) = (posFinal - goalPosition).^2;
     o_error(i,:) = angdiff(oriFinal, goalOrientation).^2;
-    q_error{i} = q;
+
     error(i) = error_n;
+    q_error{i} = q;
 end
 
 % Plot the results after exiting the loop iterations.
@@ -74,7 +75,8 @@ error(I);
 
 % Log the goal position to verify
 goalPosition
-goalOrientation
+disp("goalOrientation = ") 
+disp(goalOrientation * 180/pi)
 
 
 
