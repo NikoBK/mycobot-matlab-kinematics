@@ -32,11 +32,9 @@ dhT16 = simplify(dhT1 * dhT2 * dhT3 * dhT4 * dhT5 * dhT6);
 % Use the theta values to calculate the algebraic position and orientation.
 % converted to radians
 thetas = [10,20,30,40,50,60] * pi/180;
-dh_a = [0, 0, 135, 120, 0, 0];
-dh_d = [173.9, 0, 0, 88.78, 95, 65.5];
 
 x = dhT16(1,4)
 
 % Calculate the algebraic equations for forward kinematics to get the final
 % frame's xyz and RPY.
-[P, O] = getFinalFrame(dh_a, dh_d, thetas);
+[P, O] = getFinalFrame(thetas);

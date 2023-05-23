@@ -31,6 +31,7 @@ for n = 0:100
     % kinematics.
     [posGoal, oriGoal] = getFinalFrame(q_find);
 
+
     % The numeric solutions need a good starting guess. This serves as a
     % seed rather than something like 0, 0, ..., 0, we get random numbers
     % for each entry in q0 which is a vector.
@@ -44,6 +45,8 @@ for n = 0:100
 
     % Check results.
     [posFinal, oriFinal] = getFinalFrame(q);
+    disp("Checking result for: " + posGoal + ", result is: " + posFinal)
+    disp("Checking result for: " + oriGoal + ", result is: " + oriFinal)
 
     i = i + 1;
     p_error(i,:) = (posFinal - posGoal).^2;
