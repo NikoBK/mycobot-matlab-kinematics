@@ -5,7 +5,11 @@
 % Returns a matrix of two 3 x 1 vectors.
 % P = 3 x 1 vector representing position (XYZ)
 % O = 3 x 1 vector representing orientation (RPY)
-function [P, O] = getFinalFrame(dh_a, dh_d, thetas)
+function [P, O] = getFinalFrame(thetas)
+
+dh_a = [0, 0, 135, 120, 0, 0];
+dh_d = [173.9, 0, 0, 88.78, 95, 65.5];
+
 % Simplifying the names a bit for cleaner code.
     d1 = dh_d(1);     
     t1 = thetas(1);

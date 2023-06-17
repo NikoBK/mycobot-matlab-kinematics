@@ -26,7 +26,7 @@ dhParams = [
 ];
 
 % Import the robot
-mc = importrobot("mycobot.urdf");
+mc = importrobot("models/mycobot.urdf");
 show(mc);
 
 q1 =  [-0.1548, -42.8000, -21.7888, 4.0513, 123.7374, -63.0000];
